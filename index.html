@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Study Corner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="authScreen" class="auth-screen">
+    <div class="auth-card">
+      <div class="brand-mark">✦</div>
+      <h1>Study Corner</h1>
+      <p class="auth-copy">Your own calm space for planning, notes, practice and progress.</p>
+
+      <div class="auth-tabs">
+        <button class="auth-tab active" data-auth="login">Log in</button>
+        <button class="auth-tab" data-auth="signup">Create profile</button>
+      </div>
+
+      <form id="loginForm" class="auth-form active">
+        <label>Profile name
+          <input id="loginName" type="text" autocomplete="username" maxlength="24" placeholder="Your name" required>
+        </label>
+        <label>Password
+          <input id="loginPassword" type="password" autocomplete="current-password" maxlength="50" placeholder="Your password" required>
+        </label>
+        <button class="primary-btn wide" type="submit">Enter Study Corner</button>
+        <div id="loginMessage" class="form-message"></div>
+      </form>
+
+      <form id="signupForm" class="auth-form">
+        <label>Profile name
+          <input id="signupName" type="text" maxlength="24" placeholder="Choose a name" required>
+        </label>
+        <label>Password
+          <input id="signupPassword" type="password" maxlength="50" minlength="4" placeholder="At least 4 characters" required>
+        </label>
+        <label>Confirm password
+          <input id="signupConfirm" type="password" maxlength="50" minlength="4" placeholder="Type it again" required>
+        </label>
+        <button class="primary-btn wide" type="submit">Create profile</button>
+        <div id="signupMessage" class="form-message"></div>
+      </form>
+
+      <p class="local-note">Profiles and study data are stored only in this browser on this device.</p>
+    </div>
+  </div>
+
+  <div id="appShell" class="app-shell hidden">
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-mark small">✦</div>
+        <div><strong>Study Corner</strong><span>make progress your way</span></div>
+      </div>
+      <nav class="side-nav">
+        <button class="nav-btn active" data-view="home"><span>⌂</span> Home</button>
+        <button class="nav-btn" data-view="planner"><span>▣</span> Planner</button>
+        <button class="nav-btn" data-view="notes"><span>✎</span> Notes</button>
+        <button class="nav-btn" data-view="work"><span>✓</span> My Work</button>
+        <button class="nav-btn" data-view="practice"><span>?</span> Practice</button>
+        <button class="nav-btn" data-view="progress"><span>↗</span> Progress</button>
+        <button class="nav-btn" data-view="settings"><span>⚙</span> Settings</button>
+      </nav>
+      <button id="logoutBtn" class="logout-btn">Log out</button>
+    </aside>
+
+    <main class="main-area">
+      <div class="mobile-topbar">
+        <button id="menuBtn" class="menu-btn">☰</button>
+        <strong>Study Corner</strong>
+        <button id="mobileHome" class="menu-btn">⌂</button>
+      </div>
+
+      <section id="view-home" class="view active">
+        <div class="hero-card">
+          <div>
+            <p class="eyebrow">WELCOME BACK</p>
+            <h2>Hi, <span id="homeName">student</span> 👋</h2>
+            <p>What would you like to work on today?</p>
+          </div>
+          <div class="hero-orb">✦</div>
+        </div>
+        <div class="home-grid">
+          <button class="home-card" data-go="planner"><span class="home-icon">▣</span><strong>Plan my study</strong><small>Set goals, pages and deadlines</small></button>
+          <button class="home-card" data-go="notes"><span class="home-icon">✎</span><strong>Write notes</strong><small>Keep your own topic notes</small></button>
+          <button class="home-card" data-go="work"><span class="home-icon">✓</span><strong>Log my work</strong><small>Record what you completed</small></button>
+          <button class="home-card" data-go="practice"><span class="home-icon">?</span><strong>Practice</strong><small>Quick maths questions</small></button>
+          <button class="home-card" data-go="progress"><span class="home-icon">↗</span><strong>See progress</strong><small>Track sessions and streaks</small></button>
+          <button class="home-card" data-go="settings"><span class="home-icon">◐</span><strong>Change theme</strong><small>Make the app feel like yours</small></button>
+        </div>
+        <div class="dashboard-row">
+          <div class="stat-card"><span id="homeSessions">0</span><small>study sessions</small></div>
+          <div class="stat-card"><span id="homeNotes">0</span><small>saved notes</small></div>
+          <div class="stat-card"><span id="homeStreak">0</span><small>day streak</small></div>
+        </div>
+      </section>
+
+      <section id="view-planner" class="view">
+        <div class="page-heading"><div><p class="eyebrow">ORGANISE</p><h2>Study Planner</h2><p>Build a plan around your own book, course or revision list.</p></div></div>
+        <div class="two-col">
+          <div class="panel">
+            <h3>Plan settings</h3>
+            <label>What are you studying?<input id="planSubject" type="text" maxlength="60" placeholder="e.g. CSEC Mathematics"></label>
+            <label>Total pages / tasks<input id="planTotal" type="number" min="1" max="5000" value="100"></label>
+            <label>Completed so far<input id="planDone" type="number" min="0" max="5000" value="0"></label>
+            <label>Daily target<input id="planDaily" type="number" min="1" max="100" value="5"></label>
+            <label>Start date<input id="planStart" type="date"></label>
+            <button id="savePlan" class="primary-btn">Save plan</button>
+          </div>
+          <div class="panel">
+            <h3>Your plan</h3>
+            <div class="progress-track"><div id="planProgressFill" class="progress-fill"></div></div>
+            <div class="plan-stats"><strong id="planPercent">0%</strong><span id="planSummary">No plan yet</span></div>
+            <div id="planSchedule" class="schedule-list"></div>
+          </div>
+        </div>
+        <div class="panel timer-panel">
+          <div><h3>Focus timer</h3><p>Use a simple study sprint.</p></div>
+          <div class="timer"><div id="timerDisplay">25:00</div><div class="timer-actions"><button id="timerStart" class="primary-btn">Start</button><button id="timerReset" class="ghost-btn">Reset</button></div></div>
+        </div>
+      </section>
+
+      <section id="view-notes" class="view">
+        <div class="page-heading"><div><p class="eyebrow">YOUR SPACE</p><h2>Notes</h2><p>Everything here belongs to the current profile.</p></div></div>
+        <div class="panel note-editor">
+          <input id="noteTitle" type="text" maxlength="80" placeholder="Note title">
+          <input id="noteTopic" type="text" maxlength="60" placeholder="Topic or subject">
+          <textarea id="noteBody" maxlength="12000" placeholder="Write your notes here..."></textarea>
+          <button id="saveNoteBtn" class="primary-btn">Save note</button>
+        </div>
+        <div id="notesList" class="cards-list"></div>
+      </section>
+
+      <section id="view-work" class="view">
+        <div class="page-heading"><div><p class="eyebrow">KEEP TRACK</p><h2>My Work</h2><p>Log what you worked on and how it went.</p></div></div>
+        <div class="panel work-form">
+          <label>Subject / topic<input id="workTopic" maxlength="70" placeholder="e.g. Algebra"></label>
+          <label>What did you complete?<textarea id="workDetails" maxlength="3000" placeholder="Pages, questions, revision, homework..."></textarea></label>
+          <label>How did it feel?<select id="workFeeling"><option value="good">Got it</option><option value="mixed">Some mistakes</option><option value="hard">Need more practice</option></select></label>
+          <button id="addWorkBtn" class="primary-btn">Add study entry</button>
+        </div>
+        <div id="workList" class="cards-list"></div>
+      </section>
+
+      <section id="view-practice" class="view">
+        <div class="page-heading"><div><p class="eyebrow">QUICK REVIEW</p><h2>Practice</h2><p>Short built-in maths questions with instant answers.</p></div></div>
+        <div class="panel practice-panel">
+          <div class="practice-meta"><span id="practiceTopic">Mixed maths</span><span id="practiceCount">Question 1</span></div>
+          <div id="practiceQuestion" class="practice-question"></div>
+          <input id="practiceInput" type="text" placeholder="Your answer">
+          <div class="practice-actions"><button id="checkAnswer" class="primary-btn">Check answer</button><button id="nextQuestion" class="ghost-btn">Next question</button></div>
+          <div id="practiceResult" class="practice-result"></div>
+        </div>
+      </section>
+
+      <section id="view-progress" class="view">
+        <div class="page-heading"><div><p class="eyebrow">YOUR PROGRESS</p><h2>Progress</h2><p>A simple view of the work you have logged.</p></div></div>
+        <div class="progress-grid">
+          <div class="big-stat"><span id="progressSessions">0</span><small>Study sessions</small></div>
+          <div class="big-stat"><span id="progressNotes">0</span><small>Notes created</small></div>
+          <div class="big-stat"><span id="progressCorrect">0</span><small>Practice correct</small></div>
+          <div class="big-stat"><span id="progressStreak">0</span><small>Current streak</small></div>
+        </div>
+        <div class="panel"><h3>Recent study activity</h3><div id="recentActivity" class="activity-list"></div></div>
+      </section>
+
+      <section id="view-settings" class="view">
+        <div class="page-heading"><div><p class="eyebrow">PERSONALISE</p><h2>Settings</h2><p>Choose the look you like best.</p></div></div>
+        <div class="panel">
+          <h3>Colour palette</h3>
+          <div class="theme-grid">
+            <button class="theme-card" data-theme="forest"><div class="swatches"><i></i><i></i><i></i></div><strong>Forest & Latte</strong><span>green · white · brown</span></button>
+            <button class="theme-card" data-theme="blossom"><div class="swatches"><i></i><i></i><i></i></div><strong>Blossom Sky</strong><span>pink · blue · white</span></button>
+            <button class="theme-card" data-theme="mono"><div class="swatches"><i></i><i></i><i></i></div><strong>Monochrome</strong><span>gray · black · white</span></button>
+          </div>
+        </div>
+        <div class="panel danger-panel"><div><h3>Profile</h3><p id="settingsProfileName"></p></div><button id="clearDataBtn" class="danger-btn">Clear my study data</button></div>
+      </section>
+    </main>
+  </div>
+
+<script src="app.js"></script>
+</body>
+</html>
