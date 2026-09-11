@@ -43,3 +43,7 @@ function renderProgress(){const d=ensureData();$('statPlans').textContent=d.plan
 function renderAll(){renderPlans();renderNotes();renderWork();renderProgress()}
 function timerRender(){const m=String(Math.floor(timerSeconds/60)).padStart(2,'0'),s=String(timerSeconds%60).padStart(2,'0');$('timerDisplay').textContent=m+':'+s}$('timerToggle').onclick=()=>{timerRunning=!timerRunning;$('timerToggle').textContent=timerRunning?'Pause':'Start';if(timerRunning)timerInterval=setInterval(()=>{timerSeconds--;if(timerSeconds<=0){clearInterval(timerInterval);timerRunning=false;timerSeconds=1500;$('timerToggle').textContent='Start';alert('Focus session complete!');}timerRender()},1000);else clearInterval(timerInterval)};$('timerReset').onclick=()=>{clearInterval(timerInterval);timerRunning=false;timerSeconds=1500;$('timerToggle').textContent='Start';timerRender()};
 const today=new Date().toISOString().slice(0,10);$('planDate').value=today;$('workDate').value=today;initQuestions();timerRender();showAuth();
+
+// Public study upgrades are kept separate so the base app stays easy to maintain.
+const upgradeCss=document.createElement('link');upgradeCss.rel='stylesheet';upgradeCss.href='public-upgrades.css?v=1';document.head.appendChild(upgradeCss);
+const upgradeScript=document.createElement('script');upgradeScript.src='public-upgrades.js?v=1';document.body.appendChild(upgradeScript);
