@@ -1,0 +1,18 @@
+/* Theme personalities for the Study Plan 2-inspired public layout */
+body[data-theme="pinkblue"]{--pub-bg:#fff1f6;--pub-bg2:#ffe7f0;--pub-card:#fffdfd;--pub-line:#f5cada;--pub-pink:#e95f91;--pub-pink2:#f78fb3;--pub-text:#4b3340;--pub-muted:#8d6b79;--pub-shadow:0 12px 32px rgba(190,96,130,.12)}
+body[data-theme="earth"]{--pub-bg:#f4f6ed;--pub-bg2:#e4ecd9;--pub-card:#fffdf7;--pub-line:#cdd9bb;--pub-pink:#667b4b;--pub-pink2:#92aa70;--pub-text:#3f4535;--pub-muted:#717962;--pub-shadow:0 12px 32px rgba(86,107,67,.12)}
+body[data-theme="mono"]{--pub-bg:#f4f4f4;--pub-bg2:#e6e6e6;--pub-card:#fff;--pub-line:#d3d3d3;--pub-pink:#2f2f2f;--pub-pink2:#686868;--pub-text:#202020;--pub-muted:#6c6c6c;--pub-shadow:0 12px 30px rgba(0,0,0,.08)}
+body[data-theme="earth"]{background:radial-gradient(circle at 15% 10%,#fbfdf6 0,transparent 32%),linear-gradient(135deg,var(--pub-bg),var(--pub-bg2))!important}
+body[data-theme="mono"]{background:radial-gradient(circle at 15% 10%,#fff 0,transparent 32%),linear-gradient(135deg,var(--pub-bg),var(--pub-bg2))!important}
+body[data-theme="earth"] .public-dash-hero{background:linear-gradient(135deg,#fffdf8,#edf4e4)!important}
+body[data-theme="mono"] .public-dash-hero{background:linear-gradient(135deg,#fff,#eeeeee)!important}
+body[data-theme="earth"] .primary-btn,body[data-theme="earth"] .success-btn,body[data-theme="earth"] .public-plan2-tab.active{background:linear-gradient(135deg,#667b4b,#92aa70)!important;box-shadow:0 7px 16px rgba(102,123,75,.20)!important}
+body[data-theme="mono"] .primary-btn,body[data-theme="mono"] .success-btn,body[data-theme="mono"] .public-plan2-tab.active{background:linear-gradient(135deg,#242424,#666)!important;box-shadow:0 7px 16px rgba(0,0,0,.14)!important}
+body[data-theme="earth"] .panel,body[data-theme="earth"] .item-card,body[data-theme="earth"] .stat-card,body[data-theme="earth"] .question-card,body[data-theme="earth"] .answer-card{background:rgba(255,253,247,.95)!important}
+body[data-theme="mono"] .panel,body[data-theme="mono"] .item-card,body[data-theme="mono"] .stat-card,body[data-theme="mono"] .question-card,body[data-theme="mono"] .answer-card{background:rgba(255,255,255,.96)!important}
+body[data-theme="earth"] input,body[data-theme="earth"] textarea,body[data-theme="earth"] select,body[data-theme="earth"] .public-quick,body[data-theme="earth"] .choice-grid button{background:#fbfcf6!important}
+body[data-theme="mono"] input,body[data-theme="mono"] textarea,body[data-theme="mono"] select,body[data-theme="mono"] .public-quick,body[data-theme="mono"] .choice-grid button{background:#fafafa!important}
+body[data-theme="earth"] .public-fc-create-callout{background:linear-gradient(135deg,#fcfdf8,#eef4e6)!important;border-color:#92aa70!important}
+body[data-theme="mono"] .public-fc-create-callout{background:linear-gradient(135deg,#fff,#f1f1f1)!important;border-color:#777!important}
+body[data-theme="earth"] .public-dash-stat{background:#fffdf8}
+body[data-theme="mono"] .public-dash-stat{background:#fff}
