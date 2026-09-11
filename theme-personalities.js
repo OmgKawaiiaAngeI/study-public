@@ -1,8 +1,8 @@
 (() => {
   const configs={
-    pinkblue:{brand:'✦',hero:'🌷',heading:'What do you want to work on today? 🌸',icons:{planner:'🗓️',notes:'📝',work:'📚',questions:'✏️',progress:'📊',timer:'⏱️',flashcards:'🧠',mistakes:'📕',learn:'🎯',test:'🧪',library:'🗂️'}},
-    earth:{brand:'🌱',hero:'🪴',heading:'What do you want to grow today? 🌿',icons:{planner:'🌿',notes:'🍃',work:'📗',questions:'🌱',progress:'🌾',timer:'⏱️',flashcards:'🪴',mistakes:'🍂',learn:'🌻',test:'🌼',library:'🧺'}},
-    mono:{brand:'✦',hero:'◻️',heading:'What do you want to work on today? ◇',icons:{planner:'◫',notes:'✎',work:'▣',questions:'□',progress:'◔',timer:'◷',flashcards:'◈',mistakes:'!',learn:'◎',test:'◇',library:'▦'}}
+    pinkblue:{brand:'✦',hero:'🌷',heading:'What do you want to work on today? 🌸',icons:{planner:'🗓️',notes:'📝',work:'📚',questions:'✏️',progress:'📊',timer:'⏱️',flashcards:'🧠',mistakes:'📕',learn:'🎯',test:'🧪',library:'🗂️',aiguide:'✨',rewards:'🎁'}},
+    earth:{brand:'🌱',hero:'🪴',heading:'What do you want to grow today? 🌿',icons:{planner:'🌿',notes:'🍃',work:'📗',questions:'🌱',progress:'🌾',timer:'⏱️',flashcards:'🪴',mistakes:'🍂',learn:'🌻',test:'🌼',library:'🧺',aiguide:'🌱',rewards:'🌸'}},
+    mono:{brand:'✦',hero:'◻️',heading:'What do you want to work on today? ◇',icons:{planner:'◫',notes:'✎',work:'▣',questions:'□',progress:'◔',timer:'◷',flashcards:'◈',mistakes:'!',learn:'◎',test:'◇',library:'▦',aiguide:'◇',rewards:'☆'}}
   };
   const getTheme=()=>document.body.dataset.theme||'pinkblue';
   function setTextIcon(el,icon){if(!el)return; const span=el.querySelector(':scope > span'); if(span) span.textContent=icon;}
@@ -22,4 +22,12 @@
   obs.observe(document.body,{attributes:true});
   document.addEventListener('click',e=>{const b=e.target.closest('.theme-option');if(b)setTimeout(apply,0)});
   setTimeout(apply,0);setTimeout(apply,500);
+
+  // Load the shared points/rewards feature after the rest of the public app is ready.
+  if(!document.querySelector('link[data-rewards-css]')){
+    const css=document.createElement('link');css.rel='stylesheet';css.href='rewards.css?v=1';css.dataset.rewardsCss='1';document.head.appendChild(css);
+  }
+  if(!document.querySelector('script[data-rewards-js]')){
+    const js=document.createElement('script');js.src='rewards.js?v=1';js.dataset.rewardsJs='1';document.body.appendChild(js);
+  }
 })();
