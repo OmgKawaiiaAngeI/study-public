@@ -5,33 +5,19 @@
     const app=$('app'),main=document.querySelector('main');
     if(!app||!main||!$('view-dashboard')||!$('view-learn')||!$('view-test')) return false;
     if($('view-study')) return true;
-
     const shell=document.createElement('div');shell.className='public-shell-grid';
     const side=document.createElement('aside');side.className='public-side';side.id='publicSideNav';
     side.innerHTML=`<div class="public-side-title">Study Corner</div><div class="public-side-label">Tools</div><button data-pgo="planner">🗓️ Planner</button><button data-pgo="notes">📝 Notes</button><button data-pgo="work">📚 My Work</button><button data-pgo="progress">📊 Progress</button><button data-pgo="mistakes">📕 Mistake Book</button><button data-pgo="library">🗂️ Library</button><button data-pgo="aiguide">✨ AI How-To</button><button data-pgo="rewards">🎁 Settings & Rewards</button>`;
     const mainWrap=document.createElement('div');mainWrap.className='public-shell-main';
     const menu=document.createElement('button');menu.className='public-menu-btn';menu.id='publicMenuBtn';menu.textContent='☰ Menu';mainWrap.appendChild(menu);
     app.insertBefore(shell,main);shell.append(side,mainWrap);mainWrap.appendChild(main);
-
     const study=document.createElement('section');study.className='view';study.id='view-study';study.innerHTML=`<div class="section-head"><div><h2>📚 Study</h2><p>Choose the kind of study session you need right now.</p></div></div><div class="panel"><div class="pub-study-select"><label for="pubStudyMode"><b>Study mode</b></label><select id="pubStudyMode"><option value="questions">Practice Questions</option><option value="learn">Learn Mode</option><option value="test">Test Mode</option></select><button class="primary-btn compact" id="pubOpenStudy">Open mode</button></div><div class="pub-study-modes"><button class="pub-study-mode" data-mode="questions"><span class="mode-icon">✏️</span><h3>Practice Questions</h3><p>Use this when you want a quick check of what you know. Wrong questions still go into the Mistake Book and explanations appear after the answer.</p></button><button class="pub-study-mode" data-mode="learn"><span class="mode-icon">🎯</span><h3>Learn Mode</h3><p>Use this when you are still learning a topic and want repeated practice that gradually requires more recall.</p></button><button class="pub-study-mode" data-mode="test"><span class="mode-icon">🧪</span><h3>Test Mode</h3><p>Use this when you think you know the topic and want to test yourself with a final score and optional timer.</p></button></div></div>`;
     main.insertBefore(study,main.firstChild);
-
-    function show(name){
-      if(typeof go==='function') go(name);
-      else document.querySelectorAll('main>.view').forEach(v=>v.classList.toggle('active',v.id==='view-'+name));
-      side.querySelectorAll('[data-pgo]').forEach(b=>b.classList.toggle('active',b.dataset.pgo===name));side.classList.remove('open');
-    }
-    window.publicStudyShow=show;
-    side.querySelectorAll('[data-pgo]').forEach(b=>b.onclick=()=>show(b.dataset.pgo));
-    menu.onclick=()=>side.classList.toggle('open');
-    document.addEventListener('click',e=>{if(innerWidth<=760&&side.classList.contains('open')&&!side.contains(e.target)&&e.target!==menu)side.classList.remove('open')});
-    study.querySelectorAll('[data-mode]').forEach(b=>b.onclick=()=>show(b.dataset.mode));$('pubOpenStudy').onclick=()=>show($('pubStudyMode').value);
-
-    const dash=$('view-dashboard');if(dash&&!$('pubPrimaryActions')){
-      const actions=document.createElement('div');actions.id='pubPrimaryActions';actions.className='pub-primary-actions';actions.innerHTML=`<button class="pub-primary-action" data-home="study"><span class="ico">📚</span><b>Study</b><small>Practice, Learn, or Test</small></button><button class="pub-primary-action" data-home="flashcards"><span class="ico">🧠</span><b>Flashcards</b><small>Review or create cards</small></button><button class="pub-primary-action" data-home="flashcards"><span class="ico">🌤️</span><b>Daily Review</b><small>Review cards that are due</small></button><button class="pub-primary-action" data-home="timer"><span class="ico">⏱️</span><b>Focus</b><small>Start a focus session</small></button>`;
-      dash.querySelector('.public-dash-hero')?.insertAdjacentElement('afterend',actions);actions.querySelectorAll('[data-home]').forEach(b=>b.onclick=()=>show(b.dataset.home));
-      const oldQuick=dash.querySelector('.public-dash-grid .public-quick-grid');if(oldQuick)oldQuick.closest('.panel').style.display='none';
-    }
+    function show(name){if(typeof go==='function') go(name);else document.querySelectorAll('main>.view').forEach(v=>v.classList.toggle('active',v.id==='view-'+name));side.querySelectorAll('[data-pgo]').forEach(b=>b.classList.toggle('active',b.dataset.pgo===name));side.classList.remove('open')}
+    window.publicStudyShow=show;side.querySelectorAll('[data-pgo]').forEach(b=>b.onclick=()=>show(b.dataset.pgo));menu.onclick=()=>side.classList.toggle('open');document.addEventListener('click',e=>{if(innerWidth<=760&&side.classList.contains('open')&&!side.contains(e.target)&&e.target!==menu)side.classList.remove('open')});study.querySelectorAll('[data-mode]').forEach(b=>b.onclick=()=>show(b.dataset.mode));$('pubOpenStudy').onclick=()=>show($('pubStudyMode').value);
+    const dash=$('view-dashboard');if(dash&&!$('pubPrimaryActions')){const actions=document.createElement('div');actions.id='pubPrimaryActions';actions.className='pub-primary-actions';actions.innerHTML=`<button class="pub-primary-action" data-home="study"><span class="ico">📚</span><b>Study</b><small>Practice, Learn, or Test</small></button><button class="pub-primary-action" data-home="flashcards"><span class="ico">🧠</span><b>Flashcards</b><small>Review or create cards</small></button><button class="pub-primary-action" data-home="flashcards"><span class="ico">🌤️</span><b>Daily Review</b><small>Review cards that are due</small></button><button class="pub-primary-action" data-home="timer"><span class="ico">⏱️</span><b>Focus</b><small>Start a focus session</small></button>`;dash.querySelector('.public-dash-hero')?.insertAdjacentElement('afterend',actions);actions.querySelectorAll('[data-home]').forEach(b=>b.onclick=()=>show(b.dataset.home));const oldQuick=dash.querySelector('.public-dash-grid .public-quick-grid');if(oldQuick)oldQuick.closest('.panel').style.display='none'}
     show('dashboard');return true;
   });
+  if(!document.getElementById('plannerV3Styles')){const l=document.createElement('link');l.id='plannerV3Styles';l.rel='stylesheet';l.href='planner-v3.css?v=1';document.head.appendChild(l)}
+  if(!document.getElementById('plannerV3Script')){const s=document.createElement('script');s.id='plannerV3Script';s.src='planner-v3.js?v=1';document.body.appendChild(s)}
 })();
