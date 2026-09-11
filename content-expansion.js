@@ -1,0 +1,17 @@
+(() => {
+const extra={
+'Algebra':[['Solve 5x - 8 = 27.','x = 7'],['Simplify 7x + 4 - 3x + 9.','4x + 13'],['Expand 6(2x - 3).','12x - 18'],['Factorise x² + 7x + 12.','(x + 3)(x + 4)'],['Solve x² - 9x + 20 = 0.','x = 4 or x = 5'],['If y=3x+2, find y when x=5.','17'],['Factorise x² - 16.','(x + 4)(x - 4)']],
+'Fractions':[['Calculate 3/4 + 5/8.','11/8 or 1 3/8'],['Write 0.45 as a fraction in simplest form.','9/20'],['Calculate 7/10 - 1/4.','9/20'],['Find 5/6 of 72.','60'],['Simplify 42/56.','3/4']],
+'Percentages':[['Find 35% of 240.','84'],['Increase 320 by 12.5%.','360'],['A $750 item is reduced by 18%. Find the sale price.','$615'],['A value rises from 120 to 150. Find the percentage increase.','25%'],['Find 7.5% of 800.','60']],
+'Geometry':[['Find the sum of interior angles of a hexagon.','720°'],['Each exterior angle of a regular octagon is?','45°'],['A right angle is split into 35° and x. Find x.','55°'],['Find the area of a circle with radius 5 cm, in terms of π.','25π cm²'],['Two angles on a straight line are 3x and 2x. Find x.','36°']],
+'Sets & Venn Diagrams':[['If n(A)=18, n(B)=14 and n(A∩B)=6, find n(A∪B).','26'],['If U={1,2,3,4,5,6} and A={2,4,6}, find A′.','{1,3,5}'],['What does A∩B mean?','Elements in both A and B.'],['30 students: 18 like Maths, 12 English, 5 both. How many like Maths only?','13'],['For the same class, how many like English only?','7']],
+'Statistics':[['Find the mean of 4, 7, 9, 10, 10.','8'],['Find the median of 3, 5, 8, 11, 14.','8'],['Find the mode of 2, 4, 4, 5, 7, 7, 7.','7'],['Find the range of 12, 18, 9, 21, 15.','12'],['The mean of five numbers is 12. Find their total.','60']],
+'Trigonometry':[['Opposite=6, hypotenuse=10. Find sin θ.','0.6'],['Adjacent=8, hypotenuse=10. Find cos θ.','0.8'],['Opposite=9, adjacent=12. Find tan θ.','0.75'],['Which ratio is opposite/hypotenuse?','sine'],['Which side is opposite the right angle?','hypotenuse']],
+'Matrices':[['State the order of [[1,2,3],[4,5,6]].','2 × 3'],['Add [[2,1],[3,4]] and [[5,2],[1,6]].','[[7,3],[4,10]]'],['Find det [[4,2],[3,1]].','-2'],['Multiply [[1,2],[3,4]] by 2.','[[2,4],[6,8]]'],['Can a 2×3 matrix be added to a 3×2 matrix?','No']],
+'Consumer Arithmetic':[['Find 8% simple interest on $1500 for 2 years.','$240'],['An item costs $400 and sells for $500. Find profit percentage.','25%'],['Find a 15% discount on $860.','$129'],['A $1200 item has 12.5% VAT added. Find total.','$1350'],['A car worth $50,000 depreciates 10%. Find its new value.','$45,000']],
+'Coordinate Geometry':[['Find gradient through (1,2) and (5,10).','2'],['Find midpoint of (2,4) and (8,10).','(5,7)'],['What is the y-intercept of y=3x-5?','-5'],['Equation with gradient 2 and y-intercept 4?','y = 2x + 4'],['A horizontal line has what gradient?','0']]
+};
+Object.entries(extra).forEach(([topic,cards])=>{banks[topic] ||= [];cards.forEach(c=>{if(!banks[topic].some(x=>x[0]===c[0]))banks[topic].push(c)})});
+// Add the same richer starter content to the suite's custom-deck store for each profile, without overwriting user cards.
+const oldEnter=enterApp;enterApp=function(name){oldEnter(name);const d=ensureData();d.flashcards ||= {};Object.entries(extra).forEach(([topic,cards])=>{d.flashcards[topic] ||= [];cards.forEach((c,i)=>{const id=`expanded:${topic}:${i}`;if(!d.flashcards[topic].some(x=>x.id===id||x.front===c[0]))d.flashcards[topic].push({id,front:c[0],back:c[1]})})});saveData(d);if(typeof renderAll==='function')renderAll()};
+})();
