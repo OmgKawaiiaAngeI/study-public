@@ -1,0 +1,31 @@
+(() => {
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+const main=document.querySelector('main'),grid=document.querySelector('.nav-grid');
+if(!main||!grid)return;
+if(!grid.querySelector('[data-go="aiguide"]')){
+  const b=document.createElement('button');b.className='nav-card';b.dataset.go='aiguide';b.innerHTML='<span>✨</span><b>AI How-To</b><small>Use your own AI for notes & flashcards</small>';b.onclick=()=>go('aiguide');grid.appendChild(b);
+}
+if(!$('view-aiguide')){
+  const s=document.createElement('section');s.className='view';s.id='view-aiguide';s.innerHTML=`
+    <div class="section-head"><button class="back-btn">←</button><div><h2>✨ AI How-To</h2><p>Use any AI you already have, then bring the results into Study Corner.</p></div></div>
+    <div class="panel"><div class="ai-tip"><b>You do not need to connect an API key.</b> Open your preferred AI in another tab/app, give it your material, copy the result, then paste it here.</div></div>
+    <div class="ai-guide-grid">
+      <div class="ai-step"><div class="ai-step-num">1</div><h3>Give the AI your material</h3><p>Paste your class notes, textbook section, syllabus points, or your own summary into the AI chat.</p></div>
+      <div class="ai-step"><div class="ai-step-num">2</div><h3>Ask for the right format</h3><p>Use one of the prompts below so the result is easy to import.</p></div>
+      <div class="ai-step"><div class="ai-step-num">3</div><h3>Copy the result</h3><p>For flashcards, keep one card per line using <b>Question || Answer</b>.</p></div>
+      <div class="ai-step"><div class="ai-step-num">4</div><h3>Import it here</h3><p>Paste the generated notes or cards into the importer below and save them to your profile.</p></div>
+    </div>
+    <div class="panel"><h3>Prompt: make study notes</h3><div class="prompt-box" id="notesPrompt">Turn the material I give you into clear study notes for a student. Keep the important definitions, formulas, rules, examples and common mistakes. Use headings and short bullet points. Do not add information that is not supported by my material. End with a short checklist of what I should remember.</div><div class="prompt-actions"><button class="secondary-btn" data-copy="notesPrompt">Copy prompt</button><span class="copy-ok" id="notesCopyMsg"></span></div></div>
+    <div class="panel"><h3>Prompt: make flashcards</h3><div class="prompt-box" id="cardsPrompt">Create useful flashcards from the material I give you. Focus on definitions, formulas, rules, methods and questions I am likely to forget. Output ONLY one flashcard per line in this exact format: Question || Answer. Do not number the lines and do not use || anywhere except between the question and answer.</div><div class="prompt-actions"><button class="secondary-btn" data-copy="cardsPrompt">Copy prompt</button><span class="copy-ok" id="cardsCopyMsg"></span></div></div>
+    <div class="panel ai-importer"><h3>Import AI notes</h3><input id="aiNoteTitle" placeholder="Note title"><textarea id="aiNoteBody" placeholder="Paste the notes your AI generated here..."></textarea><button class="primary-btn" id="aiImportNote">Save to My Notes</button><div class="import-help" id="aiNoteMsg"></div></div>
+    <div class="panel ai-importer"><h3>Bulk import AI flashcards</h3><input id="aiDeckName" placeholder="Deck / subject name, e.g. Biology — Cells"><textarea id="aiCardsBody" placeholder="Paste cards here...\nWhat is mitosis? || Cell division that produces two genetically identical cells.\nWhat is the nucleus? || The organelle that contains genetic material."></textarea><div class="ai-format-example">Required format:\nQuestion || Answer\nQuestion || Answer</div><button class="primary-btn" id="aiImportCards">Import flashcards</button><div class="import-help" id="aiCardsMsg"></div></div>`;
+  main.appendChild(s);s.querySelector('.back-btn').onclick=()=>go('home');
+}
+function copyText(id,msgId){const text=$(id).textContent;navigator.clipboard?.writeText(text).then(()=>{$(msgId).textContent='Copied!';setTimeout(()=>$(msgId).textContent='',1400)}).catch(()=>{$(msgId).textContent='Select and copy the prompt.'})}
+document.querySelector('[data-copy="notesPrompt"]')?.addEventListener('click',()=>copyText('notesPrompt','notesCopyMsg'));
+document.querySelector('[data-copy="cardsPrompt"]')?.addEventListener('click',()=>copyText('cardsPrompt','cardsCopyMsg'));
+$('aiImportNote')?.addEventListener('click',()=>{const title=$('aiNoteTitle').value.trim(),body=$('aiNoteBody').value.trim();if(!title||!body){$('aiNoteMsg').textContent='Add a title and paste your notes first.';return;}if(!currentUser){$('aiNoteMsg').textContent='Log in first.';return;}const d=ensureData();d.notes.unshift({id:crypto.randomUUID(),title,body,created:new Date().toLocaleDateString()});saveData(d);$('aiNoteTitle').value='';$('aiNoteBody').value='';$('aiNoteMsg').textContent='Saved to My Notes ✓';renderNotes();});
+$('aiImportCards')?.addEventListener('click',()=>{const topic=$('aiDeckName').value.trim(),raw=$('aiCardsBody').value.trim();if(!topic||!raw){$('aiCardsMsg').textContent='Add a deck name and paste your flashcards first.';return;}if(!currentUser){$('aiCardsMsg').textContent='Log in first.';return;}const lines=raw.split(/\r?\n/).map(x=>x.trim()).filter(Boolean),parsed=[];for(const line of lines){const i=line.indexOf('||');if(i<1)continue;const front=line.slice(0,i).trim(),back=line.slice(i+2).trim();if(front&&back)parsed.push({id:crypto.randomUUID(),front,back});}if(!parsed.length){$('aiCardsMsg').textContent='I could not find any valid cards. Use: Question || Answer';return;}const d=upgradeData();d.flashcards[topic] ||= [];d.flashcards[topic].push(...parsed);saveData(d);$('aiDeckName').value='';$('aiCardsBody').value='';$('aiCardsMsg').textContent=`Imported ${parsed.length} flashcard${parsed.length===1?'':'s'} ✓`;if(typeof fcPopulate==='function')fcPopulate();});
+const oldGo=go;go=function(name){oldGo(name);};
+})();
