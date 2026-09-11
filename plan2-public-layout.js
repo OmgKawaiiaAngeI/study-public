@@ -6,7 +6,7 @@
   const tabs=document.createElement('div');
   tabs.className='public-plan2-tabs';
   const destinations=[
-    ['dashboard','Dashboard'],['planner','Planner'],['notes','Notes'],['work','My Work'],['flashcards','Flashcards'],['questions','Practice'],['mistakes','Mistakes'],['learn','Learn'],['test','Test'],['progress','Progress'],['timer','Timer'],['library','Library']
+    ['dashboard','Dashboard'],['planner','Planner'],['notes','Notes'],['work','My Work'],['flashcards','Flashcards'],['questions','Practice'],['mistakes','Mistakes'],['learn','Learn'],['test','Test'],['aiguide','AI Input Guide'],['progress','Progress'],['timer','Timer'],['library','Library']
   ].filter(([id])=>id==='dashboard'||$('view-'+id));
   destinations.forEach(([id,label])=>{
     const b=document.createElement('button');
@@ -36,6 +36,7 @@
         <button class="public-quick" data-quick="test"><b>🧪 Take a test</b><small>Timed or untimed practice</small></button>
         <button class="public-quick" data-quick="questions"><b>✏️ Quick practice</b><small>Work through maths questions</small></button>
         <button class="public-quick" data-quick="notes"><b>📝 Write a note</b><small>Save your own study notes</small></button>
+        <button class="public-quick" data-quick="aiguide"><b>✨ AI Input Guide</b><small>Turn AI notes into cards and notes</small></button>
         <button class="public-quick" data-quick="planner"><b>🗓️ Plan a session</b><small>Add a study task</small></button>
         <button class="public-quick" data-quick="library"><b>🗂️ Open library</b><small>Decks, folders and sharing</small></button>
         <button class="public-quick" data-quick="timer"><b>⏱️ Focus timer</b><small>Start a study session</small></button>
@@ -79,7 +80,6 @@
   tabs.querySelectorAll('button').forEach(b=>b.onclick=()=>show(b.dataset.publicGo));
   dash.querySelectorAll('[data-quick]').forEach(b=>b.onclick=()=>show(b.dataset.quick));
 
-  // Make the existing custom-flashcard form visually prominent, without changing its logic.
   const flashView=$('view-flashcards');
   if(flashView){
     const panels=flashView.querySelectorAll('.panel');
@@ -89,6 +89,5 @@
   const previousEnter=enterApp;
   enterApp=function(name){previousEnter(name);setTimeout(()=>{show('dashboard');renderDash()},0)};
 
-  // Existing home buttons still work, but the new top navigation becomes the main layout.
   setTimeout(()=>{if(currentUser){show('dashboard');renderDash()}},0);
 })();
